@@ -1,0 +1,42 @@
+AR Oscillations
+This test case simulates transcription, translation, and degradation dynamics for the protein products of two genes. 
+
+Species and Diffusion Coefficients:
+A               10 um^2.s-1
+R               10 um^2.s-1
+C               10 um^2.s-1
+mRNA_A_         10 um^2.s-1
+mRNA_R          10 um^2.s-1
+PrmA            10 um^2.s-1
+PrmA_bound      10 um^2.s-1
+PrmR            10 um^2.s-1
+PrmR_bound      10 um^2.s-1
+
+Geometry:
+Cube
+Volume - 4.189 um^3
+Side Length - 1.61202 um
+
+Initial Conditions (Species, Concentration, Number of Molecules):
+PrmA        0.000397 uM         1 molecule
+PrmR        0.000397 uM         1 molecule
+
+Reactions (Equation, Kf, Kr):
+A + R -> C                          1204 uM-1.s-1         0 s-1
+PrmA + A <-> PrmA_bound              602 uM-1.s-1        50 s-1
+PrmR + R <-> PrmR_bound              602 uM-1.s-1       100 s-1
+PrmR -> mRNA_R + PrmR               0.01 s-1              0 s-1.uM-1
+PrmA_bound -> mRNA_A_ + PrmA_bound   500 s-1              0 s-1.uM-1
+PrmR_bound -> mRNA_R + PrmR_bound     50 s-1              0 s-1.uM-1
+PrmA -> PrmA + mRNA_A_                50 s-1              0 s-1.uM-1
+mRNA_A_ -> A + mRNA_A_                50 s-1              0 s-1.uM-1
+mRNA_R -> R + mRNA_R                   5 s-1              0 s-1
+mRNA_A_ -> NULL                       10 s-1              0 s-1
+mRNA_R -> NULL                       0.5 s-1              0 s-1
+A -> NULL                              1 s-1              0 s-1
+R -> NULL                            0.2 s-1              0 s-1
+C -> R                                 1 s-1              0 s-1
+
+Time Step: 1e-6 s
+Length of Simulation: 2 s
+Number of Seeds (MCell): 10
