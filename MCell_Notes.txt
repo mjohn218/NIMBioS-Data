@@ -1,0 +1,9 @@
+Some notes about MCell:
+- When creating the geometry in Blender, the radius refers to half of the side length for polygons (in 2D and 3D). For spherical shapes, the radius refers to the distance from the center to the edge of the object. 
+- The rate for volume to surface reactions needs to be doubled. MCell does not interpret the inputted rate as the effective Kon. 
+- MCell returns an error when reaction names are inputted. 
+- MCell documentation is not in one condensed locations (some of the documentation is in the GitHub directory for developers while other documentation is on the main webpage). 
+
+Questions for MCell:
+- Is there a workaround for 1D reactions? MCell cannot place molecules on the boundary of a 2D object. 
+- MCell specifies the units for unimolecular reactions as s-1, but the units are incorrect for volume to surface unimolecular reactions (like recruitment). The reaction syntax description suggests that MCell can handle volume to surface reactions, but does not explicitly state the input units (cm.s-1 or um.s-1, etc.) 
