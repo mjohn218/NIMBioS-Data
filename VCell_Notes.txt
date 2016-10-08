@@ -3,4 +3,6 @@
 
 For a reaction in 3D A+A->X, the input on rate half. Due to 1/2 convention, front factor. So if you want to simulate a reaction with Kon, you have to input Kon/2 in vcell.
 
-Noticed the warning message “Mass Action Kinetics is not suitable for 2nd order membrane reaction” in the reactions table. 
+Noticed the warning message “Mass Action Kinetics is not suitable for 2nd order membrane reaction” in the reactions table.
+
+Smoldyn cannot simulate A->B+C+D
