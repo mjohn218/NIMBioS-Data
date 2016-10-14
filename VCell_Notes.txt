@@ -1,4 +1,4 @@
--How about running Smoldyn directly on a 2D plane?
+﻿-How about running Smoldyn directly on a 2D plane?
 -Can't do that! VCell spatial stochastic models only support 3D geometry
 
 For a reaction in 3D A+A->X, the input on rate half. Due to 1/2 convention, front factor. So if you want to simulate a reaction with Kon, you have to input Kon/2 in vcell.
@@ -6,3 +6,5 @@ For a reaction in 3D A+A->X, the input on rate half. Due to 1/2 convention, fron
 Noticed the warning message “Mass Action Kinetics is not suitable for 2nd order membrane reaction” in the reactions table.
 
 Smoldyn cannot simulate A->B+C+D
+
+VCell has problems outputting data with more than 1e5 data points, so for some of the Smoldyn simulations, we had to do short and long runs with different output values. 

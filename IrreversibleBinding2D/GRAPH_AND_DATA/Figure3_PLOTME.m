@@ -11,14 +11,14 @@ load('det1D_1.mat');
 load('det3D_1.mat');
 load('gillespie_1.mat');
 load('mcell_1.mat');
-%load('smoldyn_1.mat');
+load('smoldyn_1.mat');
 load('fpr_1.mat');
 
 load('det1D_10.mat');
 load('det3D_10.mat');
 load('gillespie_10.mat');
 load('mcell_10.mat');
-%load('smoldyn_10.mat');
+load('smoldyn_10.mat');
 %load('fpr_10.mat');
 
 %% Process data
@@ -53,16 +53,20 @@ mcell_1 = interp1(mcell_1(:,1)*1e6, mcell_1(:,2), time, 'pchip', 0);
 % Smoldyn_1
 %   10 trials
 %   time: s
-% for n = 3:11
-%     smoldyn(:,2) = smoldyn(:,2)+smoldyn(:,n);
-% end
-% smoldyn(:,2) = smoldyn(:,2)./10;
-% smoldyn = interp1(smoldyn(:,1)*1e6, smoldyn(:,2), time, 'pchip', 0);
+for n = 3:2:20
+    smoldyn_1(:,2) = smoldyn_1(:,2)+smoldyn_1(:,n+1);
+end
+smoldyn_1(:,2) = smoldyn_1(:,2)./10;
+smoldyn_1 = interp1(smoldyn_1(:,1)*1e6, smoldyn_1(:,2), time, 'pchip', 0);
 
 % FPR_1
-%   10 trials; already averaged
-%   time: us
-fpr_1 = interp1(fpr_1(:,1),fpr_1(:,2),time,'pchip',0);
+%   10 trials
+%   time: s
+for n = 3:11
+    fpr_1(:,2) = fpr_1(:,2) + fpr_1(:,n);
+end
+fpr_1(:,2) = fpr_1(:,2)./10;
+fpr_1 = interp1(fpr_1(:,1)*1e6,fpr_1(:,2),time,'pchip',0);
 
 
 % ODE_10
@@ -92,7 +96,11 @@ mcell_10 = interp1(mcell_10(:,1)*1e6, mcell_10(:,2), time, 'pchip', 0);
 % Smoldyn_10
 %   10 trials
 %   time: s
-%smoldynBC = interp1(smoldynBC(:,1)*1e6, smoldynBC(:,2), time, 'pchip', 0);
+for n = 3:2:20
+    smoldyn_10(:,2) = smoldyn_10(:,2)+smoldyn_10(:,n+1);
+end
+smoldyn_10(:,2) = smoldyn_10(:,2)./10;
+smoldyn_10 = interp1(smoldyn_10(:,1)*1e6, smoldyn_10(:,2), time, 'pchip', 0);
 
 % FPR_10
 %   Deletes first row
@@ -133,11 +141,11 @@ axis([0 1e5 0 1000]);
 xlabel('Time (us)');
 g5 = semilogx(time,det1D_1, '-','Color',[0 0 1], 'LineWidth', 4);
 g6 = semilogx(time,mcell_1, '--','Color',[.5 0 .8], 'LineWidth', 3);
-%g7 = semilogx(time,smoldyn_1, '-.','Color',[1 .5 0], 'LineWidth', 3);
+g7 = semilogx(time,smoldyn_1, '-.','Color',[1 .5 0], 'LineWidth', 3);
 g8 = semilogx(time,fpr_1, '--','Color',[1 .85 0], 'LineWidth', 3);
 
-lgnd = legend([g1 g2 g4 g6 g8],'ODE','PDE','Gillespie',...
-    'MCell', 'FPR');
+lgnd = legend([g1 g2 g4 g6 g7 g8],'ODE','PDE','Gillespie',...
+    'MCell', 'Smoldyn', 'FPR');
 lgnd.FontSize = 11.5;
 lgnd.Position = [.02 .475 1 1];
 lgnd.Orientation = 'horizontal';
@@ -174,11 +182,11 @@ axis([0 1e5 0 1000]);
 xlabel('Time (us)');
 g5 = semilogx(time,det1D_10, '-','Color',[0 0 1], 'LineWidth', 4);
 g6 = semilogx(time,mcell_10, '--','Color',[.5 0 .8], 'LineWidth', 3);
-%g7 = semilogx(time,smoldyn_10, '-.','Color',[1 .5 0], 'LineWidth', 3);
+g7 = semilogx(time,smoldyn_10, '-.','Color',[1 .5 0], 'LineWidth', 3);
 %g8 = semilogx(time,fpr_10, '--','Color',[1 .85 0], 'LineWidth', 3);
 
-lgnd = legend([g1 g2 g4 g6],'ODE','PDE','Gillespie',...
-    'MCell');
+lgnd = legend([g1 g2 g4 g6 g7],'ODE','PDE','Gillespie',...
+    'MCell', 'Smoldyn');
 lgnd.FontSize = 11.5;
 lgnd.Position = [.02 .475 1 1];
 lgnd.Orientation = 'horizontal';
@@ -192,5 +200,5 @@ lgnd.Orientation = 'horizontal';
 %   Smoldyn                 Orange          [1 .5 0]
 %   MCell                   Purple          [.5 0 .8]
 %% Clear
-clear
-clc
+%clear
+%clc
