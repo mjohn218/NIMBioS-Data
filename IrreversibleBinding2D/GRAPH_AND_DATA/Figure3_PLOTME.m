@@ -19,8 +19,14 @@ load('det3D_10.mat');
 load('gillespie_10.mat');
 load('mcell_10.mat');
 load('smoldyn_10.mat');
-%load('fpr_10.mat');
+load('fpr_10.mat');
 
+load('det1D_100.mat');
+load('det3D_100.mat');
+load('gillespie_100.mat');
+load('mcell_100.mat');
+load('smoldyn_100.mat');
+load('fpr_100.mat');
 %% Process data
 %   Data files containing one or more trials are averaged
 %   Data points corresponding to the time vector are extrapolated
@@ -104,10 +110,52 @@ smoldyn_10 = interp1(smoldyn_10(:,1)*1e6, smoldyn_10(:,2), time, 'pchip', 0);
 
 % FPR_10
 %   Deletes first row
-%   10 trials, already averaged
-%   time: us
-% fprBC = interp1(fprBC(2:size(fprBC),1),fprBC(2:size(fprBC),2),time,'pchip',0);
+%   10 trials
+%   time: s
+for n = 3:11
+    fpr_10(:,2) = fpr_10(:,2) + fpr_10(:,n);
+end
+fpr_10(:,2) = fpr_10(:,2)./10;
+fpr_10 = interp1(fpr_10(:,1)*1e6,fpr_10(:,2),time,'pchip',0);
 
+
+% ODE_100
+%   time: s
+det1D_100 = interp1(det1D_100(:,1)*1e6, det1D_100(:,2),time,'pchip',0);
+
+% PDE_100
+%   2 trials
+%   time: s
+det3D_100(:,2) = (det3D_100(:,2) + det3D_100(:,3))/2;
+det3D_100 = interp1(det3D_100(:,1)*1e6,det3D_100(:,2), time,'pchip', 0);
+
+% Gillespie_100
+%   20 trials
+%   time: s
+temp = 0;
+for n = 1:2:20
+    temp = temp(:,1) + interp1(gillespie_100(:,n)*1e6,gillespie_100(:,n+1), time, 'pchip',0);
+end
+gillespie_100 = temp(:,1)/10;
+clear temp
+
+% MCell_100
+%   time: s
+mcell_100 = interp1(mcell_100(:,1)*1e6, mcell_100(:,2), time, 'pchip', 0);
+
+% Smoldyn_100
+%   10 trials
+%   time: s
+for n = 3:2:20
+    smoldyn_100(:,2) = smoldyn_100(:,2)+smoldyn_100(:,n+1);
+end
+smoldyn_100(:,2) = smoldyn_100(:,2)./10;
+smoldyn_100 = interp1(smoldyn_100(:,1)*1e6, smoldyn_100(:,2), time, 'pchip', 0);
+
+% FPR_100
+%   1 trial
+%   time: us
+fpr_100 = interp1(fpr_100(:,1),fpr_100(:,2),time,'pchip',0);
 %% Plot
 % Ka = 1 um^2.s-1
 figure(1)
@@ -183,10 +231,51 @@ xlabel('Time (us)');
 g5 = semilogx(time,det1D_10, '-','Color',[0 0 1], 'LineWidth', 4);
 g6 = semilogx(time,mcell_10, '--','Color',[.5 0 .8], 'LineWidth', 3);
 g7 = semilogx(time,smoldyn_10, '-.','Color',[1 .5 0], 'LineWidth', 3);
-%g8 = semilogx(time,fpr_10, '--','Color',[1 .85 0], 'LineWidth', 3);
+g8 = semilogx(time,fpr_10, '--','Color',[1 .85 0], 'LineWidth', 3);
 
-lgnd = legend([g1 g2 g4 g6 g7],'ODE','PDE','Gillespie',...
-    'MCell', 'Smoldyn');
+lgnd = legend([g1 g2 g4 g6 g7 g8],'ODE','PDE','Gillespie',...
+    'MCell', 'Smoldyn','FPR');
+lgnd.FontSize = 11.5;
+lgnd.Position = [.02 .475 1 1];
+lgnd.Orientation = 'horizontal';
+
+% Ka = 100 um^2.s-1
+figure(3)
+subplot(3,1,1) % Spatial Effects
+% x0=10;
+% y0=10;
+% width=400;
+% height=590;
+% set(gcf,'units','points','position',[x0,y0,width,height])
+hold on
+title('Spatial Effects');
+set(gca, 'xscale', 'log', 'fontsize',12, 'fontweight','bold');
+axis([0 1e5 0 1000]);
+g1 = semilogx(time,det1D_100, '-','Color',[0 0 1], 'LineWidth', 4);
+g2 = semilogx(time,det3D_100, '--','Color',[0 .75 1], 'LineWidth', 3);
+
+subplot(3,1,2) % Stochastic Effects
+hold on
+title('Stochastic Effects');
+set(gca, 'xscale', 'log', 'fontsize',12, 'fontweight','bold');
+axis([0 1e5 0 1000]);
+ylabel('N_A(t)');
+g3 = semilogx(time,det1D_100, '-','Color',[0 0 1], 'LineWidth', 4);
+g4 = semilogx(time,gillespie_100, '--','Color',[0 .8 0], 'LineWidth', 3);
+
+subplot(3,1,3) % Single Particle Methods
+hold on
+title('Single Particle Methods');
+set(gca, 'xscale', 'log', 'fontsize',12, 'fontweight','bold');
+axis([0 1e5 0 1000]);
+xlabel('Time (us)');
+g5 = semilogx(time,det1D_100, '-','Color',[0 0 1], 'LineWidth', 4);
+g6 = semilogx(time,mcell_100, '--','Color',[.5 0 .8], 'LineWidth', 3);
+g7 = semilogx(time,smoldyn_100, '-.','Color',[1 .5 0], 'LineWidth', 3);
+g8 = semilogx(time,fpr_100, '--','Color',[1 .85 0], 'LineWidth', 3);
+
+lgnd = legend([g1 g2 g4 g6 g7 g8],'ODE','PDE','Gillespie',...
+    'MCell', 'Smoldyn', 'FPR');
 lgnd.FontSize = 11.5;
 lgnd.Position = [.02 .475 1 1];
 lgnd.Orientation = 'horizontal';

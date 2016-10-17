@@ -8,10 +8,10 @@ clc
 % t is in us
 load('time.mat');
 load('det1D_1.mat');
-%load('det3D_1.mat');
+load('det3D_1.mat');
 %load('gillespie_1.mat');
 %load('mcell_1.mat');
-%load('smoldyn_1.mat');
+load('smoldyn_1.mat');
 load('fpr_1.mat');
 
 load('det1D_10.mat');
@@ -33,8 +33,8 @@ det1D_1 = interp1(det1D_1(:,1)*1e6, det1D_1(:,2),time,'pchip',0);
 % PDE_1
 %   2 trials
 %   time: s
-%det3D_1(:,2) = (det3D_1(:,2) + det3D_1(:,3))/2;
-%det3D_1 = interp1(det3D_1(:,1)*1e6,det3D_1(:,2), time,'pchip', 0);
+det3D_1(:,2) = (det3D_1(:,2) + det3D_1(:,3))/2;
+det3D_1 = interp1(det3D_1(:,1)*1e6,det3D_1(:,2), time,'pchip', 0);
 
 % Gillespie_1
 %   20 trials
@@ -53,11 +53,11 @@ det1D_1 = interp1(det1D_1(:,1)*1e6, det1D_1(:,2),time,'pchip',0);
 % Smoldyn_1
 %   10 trials
 %   time: s
-% for n = 3:11
-%     smoldyn(:,2) = smoldyn(:,2)+smoldyn(:,n);
-% end
-% smoldyn(:,2) = smoldyn(:,2)./10;
-% smoldyn = interp1(smoldyn(:,1)*1e6, smoldyn(:,2), time, 'pchip', 0);
+for n = 3:2:20
+    smoldyn_1(:,2) = smoldyn_1(:,2)+smoldyn_1(:,n+1);
+end
+smoldyn_1(:,2) = smoldyn_1(:,2)./10;
+smoldyn_1 = interp1(smoldyn_1(:,1)*1e6, smoldyn_1(:,2), time, 'pchip', 0);
 
 % FPR_1
 %   10 trials
@@ -120,7 +120,7 @@ title('Spatial Effects');
 set(gca, 'xscale', 'log', 'fontsize',12, 'fontweight','bold');
 axis([0 1e5 0 1000]);
 g1 = semilogx(time,det1D_1, '-','Color',[0 0 1], 'LineWidth', 4);
-%g2 = semilogx(time,det3D_1, '--','Color',[0 .75 1], 'LineWidth', 3);
+g2 = semilogx(time,det3D_1, '--','Color',[0 .75 1], 'LineWidth', 3);
 
 subplot(3,1,2) % Stochastic Effects
 hold on
@@ -139,7 +139,7 @@ axis([0 1e5 0 1000]);
 xlabel('Time (us)');
 g5 = semilogx(time,det1D_1, '-','Color',[0 0 1], 'LineWidth', 4);
 %g6 = semilogx(time,mcell_1, '--','Color',[.5 0 .8], 'LineWidth', 3);
-%g7 = semilogx(time,smoldyn_1, '-.','Color',[1 .5 0], 'LineWidth', 3);
+g7 = semilogx(time,smoldyn_1, '-.','Color',[1 .5 0], 'LineWidth', 3);
 g8 = semilogx(time,fpr_1, '--','Color',[1 .85 0], 'LineWidth', 3);
 
 %lgnd = legend([g1 g2 g4 g6 g8],'ODE','PDE','Gillespie',...
