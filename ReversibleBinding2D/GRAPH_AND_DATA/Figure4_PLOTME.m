@@ -7,6 +7,7 @@ clc
 %% Import
 % t is in us
 load('time.mat');
+load('theory_1.mat');
 load('det1D_1.mat');
 load('det3D_1.mat');
 load('gillespie_1.mat');
@@ -14,6 +15,7 @@ load('mcell_1.mat');
 load('smoldyn_1.mat');
 load('fpr_1.mat');
 
+load('theory_10.mat');
 load('det1D_10.mat');
 load('det3D_10.mat');
 load('gillespie_10.mat');
@@ -25,6 +27,10 @@ load('fpr_10.mat');
 %   Data files containing one or more trials are averaged
 %   Data points corresponding to the time vector are extrapolated
 %   Time is converted to us
+
+% Theory_1
+%   time:us
+theory_1 = theory_1(:,2);
 
 % ODE_1
 %   time: s
@@ -69,6 +75,10 @@ end
 fpr_1(:,2) = fpr_1(:,2)./10;
 fpr_1 = interp1(fpr_1(:,1)*1e6,fpr_1(:,2),time,'pchip',0);
 
+% Theory_10
+%   time: us
+theory_10 = theory_10(:,2);
+
 % ODE_10
 %   time: s
 det1D_10 = interp1(det1D_10(:,1)*1e6,det1D_10(:,2), time, 'pchip',0);
@@ -76,7 +86,7 @@ det1D_10 = interp1(det1D_10(:,1)*1e6,det1D_10(:,2), time, 'pchip',0);
 % PDE_10
 %   2 trials
 %   time: s
-det3D_10(:,2) = (det3D_10(:,2) + det3D_10(:,3))/2;
+det3D_10(:,2) = (det3D_10(:,2) + det3D_10(:,4))/2;
 det3D_10 = interp1(det3D_10(:,1)*1e6,det3D_10(:,2), time, 'pchip', 0);
 
 % Gillespie_10
@@ -124,7 +134,8 @@ hold on
 title('Spatial Effects');
 set(gca, 'xscale', 'log', 'fontsize',12, 'fontweight','bold');
 axis([0 1e5 0 1000]);
-g1 = semilogx(time,det1D_1, '-','Color',[0 0 1], 'LineWidth', 4);
+g0 = semilogx(time,theory_1,'-','Color',[0 0 0], 'LineWidth',4);
+g1 = semilogx(time,det1D_1, '-.','Color',[0 0 1], 'LineWidth', 3);
 g2 = semilogx(time,det3D_1, '--','Color',[0 .75 1], 'LineWidth', 3);
 
 subplot(3,1,2) % Stochastic Effects
@@ -133,8 +144,9 @@ title('Stochastic Effects');
 set(gca, 'xscale', 'log', 'fontsize',12, 'fontweight','bold');
 axis([0 1e5 0 1000]);
 ylabel('N_A(t)');
-g3 = semilogx(time,det1D_1, '-','Color',[0 0 1], 'LineWidth', 4);
-g4 = semilogx(time,gillespie_1, '--','Color',[0 .8 0], 'LineWidth', 3);
+g3 = semilogx(time,theory_1,'-','Color',[0 0 0], 'LineWidth',4);
+g4 = semilogx(time,det1D_1, '-.','Color',[0 0 1], 'LineWidth', 3);
+g5 = semilogx(time,gillespie_1, '--','Color',[0 .8 0], 'LineWidth', 3);
 
 subplot(3,1,3) % Single Particle Methods
 hold on
@@ -142,13 +154,13 @@ title('Single Particle Methods');
 set(gca, 'xscale', 'log', 'fontsize',12, 'fontweight','bold');
 axis([0 1e5 0 1000]);
 xlabel('Time (us)');
-g5 = semilogx(time,det1D_1, '-','Color',[0 0 1], 'LineWidth', 4);
-g6 = semilogx(time,mcell_1, '--','Color',[.5 0 .8], 'LineWidth', 3);
-g7 = semilogx(time,smoldyn_1, '-.','Color',[1 .5 0], 'LineWidth', 3);
-g8 = semilogx(time,fpr_1, '--','Color',[1 .85 0], 'LineWidth', 3);
+g6 = semilogx(time,theory_1,'-','Color',[0 0 0], 'LineWidth',4);
+g7 = semilogx(time,mcell_1, '--','Color',[.5 0 .8], 'LineWidth', 3);
+g8 = semilogx(time,smoldyn_1, '-.','Color',[1 .5 0], 'LineWidth', 3);
+g9 = semilogx(time,fpr_1, '--','Color',[1 .85 0], 'LineWidth', 3);
 
-lgnd = legend([g1 g2 g4 g6 g8],'ODE','PDE','Gillespie',...
-    'MCell', 'FPR');
+lgnd = legend([g0 g1 g2 g5 g7 g8 g9],'Theory','ODE','PDE','Gillespie',...
+    'MCell', 'Smoldyn', 'FPR');
 lgnd.FontSize = 11.5;
 lgnd.Position = [.02 .475 1 1];
 lgnd.Orientation = 'horizontal';
@@ -165,7 +177,8 @@ hold on
 title('Spatial Effects');
 set(gca, 'xscale', 'log', 'fontsize',12, 'fontweight','bold');
 axis([0 1e5 0 1000]);
-g1 = semilogx(time,det1D_10, '-','Color',[0 0 1], 'LineWidth', 4);
+g0 = semilogx(time,theory_1,'-','Color',[0 0 0], 'LineWidth',4);
+g1 = semilogx(time,det1D_10, '-','Color',[0 0 1], 'LineWidth', 3);
 g2 = semilogx(time,det3D_10, '--','Color',[0 .75 1], 'LineWidth', 3);
 
 subplot(3,1,2) % Stochastic Effects
@@ -174,8 +187,9 @@ title('Stochastic Effects');
 set(gca, 'xscale', 'log', 'fontsize',12, 'fontweight','bold');
 axis([0 1e5 0 1000]);
 ylabel('N_A(t)');
-g3 = semilogx(time,det1D_10, '-','Color',[0 0 1], 'LineWidth', 4);
-g4 = semilogx(time,gillespie_10, '--','Color',[0 .8 0], 'LineWidth', 3);
+g3 = semilogx(time,theory_1,'-','Color',[0 0 0], 'LineWidth',4);
+g4 = semilogx(time,det1D_10, '-','Color',[0 0 1], 'LineWidth', 3);
+g5 = semilogx(time,gillespie_10, '--','Color',[0 .8 0], 'LineWidth', 3);
 
 subplot(3,1,3) % Single Particle Methods
 hold on
@@ -183,13 +197,13 @@ title('Single Particle Methods');
 set(gca, 'xscale', 'log', 'fontsize',12, 'fontweight','bold');
 axis([0 1e5 0 1000]);
 xlabel('Time (us)');
-g5 = semilogx(time,det1D_10, '-','Color',[0 0 1], 'LineWidth', 4);
-g6 = semilogx(time,mcell_10, '--','Color',[.5 0 .8], 'LineWidth', 3);
-g7 = semilogx(time,smoldyn_10, '-.','Color',[1 .5 0], 'LineWidth', 3);
-g8 = semilogx(time,fpr_10, '--','Color',[1 .85 0], 'LineWidth', 3);
+g6 = semilogx(time,theory_1,'-','Color',[0 0 0], 'LineWidth',4);
+g7 = semilogx(time,mcell_10, '--','Color',[.5 0 .8], 'LineWidth', 3);
+g8 = semilogx(time,smoldyn_10, '-.','Color',[1 .5 0], 'LineWidth', 3);
+g9 = semilogx(time,fpr_10, '--','Color',[1 .85 0], 'LineWidth', 3);
 
-lgnd = legend([g1 g2 g4 g6],'ODE','PDE','Gillespie',...
-    'MCell');
+lgnd = legend([g0 g1 g2 g5 g7 g8 g9],'Theory','ODE','PDE','Gillespie',...
+    'MCell','Smoldyn','FPR');
 lgnd.FontSize = 11.5;
 lgnd.Position = [.02 .475 1 1];
 lgnd.Orientation = 'horizontal';
