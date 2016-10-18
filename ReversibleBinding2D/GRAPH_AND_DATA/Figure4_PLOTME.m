@@ -177,7 +177,7 @@ hold on
 title('Spatial Effects');
 set(gca, 'xscale', 'log', 'fontsize',12, 'fontweight','bold');
 axis([0 1e5 0 1000]);
-g0 = semilogx(time,theory_1,'-','Color',[0 0 0], 'LineWidth',4);
+g0 = semilogx(time,theory_10,'-','Color',[0 0 0], 'LineWidth',4);
 g1 = semilogx(time,det1D_10, '-','Color',[0 0 1], 'LineWidth', 3);
 g2 = semilogx(time,det3D_10, '--','Color',[0 .75 1], 'LineWidth', 3);
 
@@ -187,7 +187,7 @@ title('Stochastic Effects');
 set(gca, 'xscale', 'log', 'fontsize',12, 'fontweight','bold');
 axis([0 1e5 0 1000]);
 ylabel('N_A(t)');
-g3 = semilogx(time,theory_1,'-','Color',[0 0 0], 'LineWidth',4);
+g3 = semilogx(time,theory_10,'-','Color',[0 0 0], 'LineWidth',4);
 g4 = semilogx(time,det1D_10, '-','Color',[0 0 1], 'LineWidth', 3);
 g5 = semilogx(time,gillespie_10, '--','Color',[0 .8 0], 'LineWidth', 3);
 
@@ -197,7 +197,7 @@ title('Single Particle Methods');
 set(gca, 'xscale', 'log', 'fontsize',12, 'fontweight','bold');
 axis([0 1e5 0 1000]);
 xlabel('Time (us)');
-g6 = semilogx(time,theory_1,'-','Color',[0 0 0], 'LineWidth',4);
+g6 = semilogx(time,theory_10,'-','Color',[0 0 0], 'LineWidth',4);
 g7 = semilogx(time,mcell_10, '--','Color',[.5 0 .8], 'LineWidth', 3);
 g8 = semilogx(time,smoldyn_10, '-.','Color',[1 .5 0], 'LineWidth', 3);
 g9 = semilogx(time,fpr_10, '--','Color',[1 .85 0], 'LineWidth', 3);
