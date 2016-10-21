@@ -75,10 +75,10 @@ smoldyn_1 = interp1(smoldyn_1(:,1)*1e6, smoldyn_1(:,2), time, 'pchip', 0);
 % FPR_1
 %   10 trials
 %   time: s
-for n = 3:11
+for n = 3:25
     fpr_1(:,2) = fpr_1(:,2) + fpr_1(:,n);
 end
-fpr_1(:,2) = fpr_1(:,2)./10;
+fpr_1(:,2) = fpr_1(:,2)./24;
 fpr_1 = interp1(fpr_1(:,1)*1e6,fpr_1(:,2),time,'pchip',0);
 
 % Theory_10
@@ -122,10 +122,10 @@ smoldyn_10 = interp1(smoldyn_10(:,1)*1e6, smoldyn_10(:,2), time, 'pchip', 0);
 %   Deletes first row
 %   10 trials
 %   time: s
-for n = 3:11
+for n = 3:25
     fpr_10(:,2) = fpr_10(:,2) + fpr_10(:,n);
 end
-fpr_10(:,2) = fpr_10(:,2)./10;
+fpr_10(:,2) = fpr_10(:,2)./24;
 fpr_10 = interp1(fpr_10(:,1)*1e6,fpr_10(:,2),time,'pchip',0);
 
 
@@ -167,9 +167,14 @@ smoldyn_100(:,2) = smoldyn_100(:,2)./10;
 smoldyn_100 = interp1(smoldyn_100(:,1)*1e6, smoldyn_100(:,2), time, 'pchip', 0);
 
 % FPR_100
-%   1 trial
-%   time: us
-fpr_100 = interp1(fpr_100(:,1),fpr_100(:,2),time,'pchip',0);
+%   Deletes first row
+%   10 trials
+%   time: s
+for n = 3:25
+    fpr_100(:,2) = fpr_100(:,2) + fpr_100(:,n);
+end
+fpr_100(:,2) = fpr_100(:,2)./24;
+fpr_100 = interp1(fpr_100(:,1)*1e6,fpr_100(:,2),time,'pchip',0);
 %% Plot
 % Ka = 1 um^2.s-1
 figure(1)
