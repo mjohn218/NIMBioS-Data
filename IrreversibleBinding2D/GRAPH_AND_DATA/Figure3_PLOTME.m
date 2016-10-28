@@ -13,6 +13,7 @@ load('det3D_1.mat');
 load('gillespie_1.mat');
 load('mcell_1.mat');
 load('smoldyn_1.mat');
+load('smoldyn_1_1ns.mat');
 load('fpr_1.mat');
 
 load('theory_10.mat');
@@ -71,6 +72,16 @@ for n = 3:2:20
 end
 smoldyn_1(:,2) = smoldyn_1(:,2)./10;
 smoldyn_1 = interp1(smoldyn_1(:,1)*1e6, smoldyn_1(:,2), time, 'pchip', 0);
+
+% Smoldyn_1
+%   10 trials
+%   time: s
+for n = 3:2:20
+    smoldyn_1_1ns(:,2) = smoldyn_1_1ns(:,2)+smoldyn_1_1ns(:,n+1);
+end
+smoldyn_1_1ns(:,2) = smoldyn_1_1ns(:,2)./10;
+smoldyn_1_1ns = interp1(smoldyn_1_1ns(:,1)*1e6, smoldyn_1_1ns(:,2), time, 'pchip', 0);
+
 
 % FPR_1
 %   10 trials
@@ -210,8 +221,11 @@ axis([0 1e5 0 1000]);
 xlabel('Time (us)');
 g6 = semilogx(time,theory_1,'-','Color',[0 0 0], 'LineWidth', 4);
 g7 = semilogx(time,mcell_1, '--','Color',[.5 0 .8], 'LineWidth', 3);
-g8 = semilogx(time,smoldyn_1, '-.','Color',[1 .5 0], 'LineWidth', 3);
+g8 = semilogx(time,smoldyn_1, '--','Color',[1 .5 0], 'LineWidth', 3);
+g8a = semilogx(time,smoldyn_1, '--','Color',[1 .5 0], 'LineWidth', 3);
+g8b = semilogx(time,smoldyn_1_1ns, '.','Color',[1 .5 0], 'LineWidth',3);
 g9 = semilogx(time,fpr_1, '--','Color',[1 .85 0], 'LineWidth', 3);
+legend([g8a g8b],'Smoldyn; dt: 1e-7','Smoldyn; dt: 1e-9');
 
 lgnd = legend([g0 g1 g2 g5 g7 g8 g9],'Theory','ODE','PDE','Gillespie',...
     'MCell', 'Smoldyn', 'FPR');
