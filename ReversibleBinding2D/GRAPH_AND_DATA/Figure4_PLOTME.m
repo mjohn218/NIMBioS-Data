@@ -39,7 +39,7 @@ det1D_1 = interp1(det1D_1(:,1)*1e6, det1D_1(:,2),time,'pchip',0);
 % PDE_1
 %   2 trials
 %   time: s
-det3D_1(:,2) = (det3D_1(:,2) + det3D_1(:,3))/2;
+det3D_1(:,2) = (det3D_1(:,2) + det3D_1(:,4))/2;
 det3D_1 = interp1(det3D_1(:,1)*1e6,det3D_1(:,2), time,'pchip', 0);
 
 % Gillespie_1
@@ -178,7 +178,7 @@ title('Spatial Effects');
 set(gca, 'xscale', 'log', 'fontsize',12, 'fontweight','bold');
 axis([0 1e5 0 1000]);
 g0 = semilogx(time,theory_10,'-','Color',[0 0 0], 'LineWidth',4);
-g1 = semilogx(time,det1D_10, '-','Color',[0 0 1], 'LineWidth', 3);
+g1 = semilogx(time,det1D_10, '-.','Color',[0 0 1], 'LineWidth', 3);
 g2 = semilogx(time,det3D_10, '--','Color',[0 .75 1], 'LineWidth', 3);
 
 subplot(3,1,2) % Stochastic Effects

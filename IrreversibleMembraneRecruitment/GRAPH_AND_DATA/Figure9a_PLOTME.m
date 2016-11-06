@@ -50,12 +50,12 @@ clear temp
 mcell = interp1(mcell(:,1)*1e6, mcell(:,2), time, 'pchip', 0);
 
 % Smoldyn
-%   4 trials
+%   9 trials
 %   time: s
-for n = 3:2:8
+for n = 3:2:18
     smoldyn(:,2) = smoldyn(:,2)+smoldyn(:,n+1);
 end
-smoldyn(:,2) = smoldyn(:,2)./4;
+smoldyn(:,2) = smoldyn(:,2)./9;
 smoldyn = interp1(smoldyn(:,1)*1e6, smoldyn(:,2), time, 'pchip', 0);
 
 % FPR
@@ -77,8 +77,8 @@ title('Spatial Effects');
 set(gca, 'xscale', 'log', 'fontsize',12, 'fontweight','bold');
 axis([0 10000 0 602]);
 %g0 = semilogx(time,theory,'-','Color',[0 0 0], 'LineWidth',4);
-g1 = semilogx(time,det1D, '--','Color',[0 0 1], 'LineWidth', 3);
 g2 = semilogx(time,det3D, '-','Color',[0 .75 1], 'LineWidth', 3);
+g1 = semilogx(time,det1D, '--','Color',[0 0 1], 'LineWidth', 3);
 
 subplot(3,1,2) % Stochastic Effects
 hold on
@@ -98,7 +98,7 @@ axis([0 10000 0 602]);
 xlabel('Time (us)');
 g6 = semilogx(time,det3D,'-','Color',[0 .75 1], 'LineWidth',4);
 g7 = semilogx(time,mcell, '-.','Color',[.5 0 .8], 'LineWidth', 3);
-g8 = semilogx(time,smoldyn, '--','Color',[1 .5 0], 'LineWidth', 3);
+g8 = semilogx(time,smoldyn, ':','Color',[1 .5 0], 'LineWidth', 3);
 g9 = semilogx(time,fpr, '--','Color',[1 .85 0], 'LineWidth', 3);
 
 lgnd = legend([g1 g2 g5 g7 g8 g9],'ODE','PDE','Gillespie',...
