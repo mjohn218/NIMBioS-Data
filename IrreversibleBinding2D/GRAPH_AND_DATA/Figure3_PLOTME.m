@@ -132,7 +132,6 @@ fpr_10 = interp1(fpr_10(:,1)*1e6,fpr_10(:,2),time,'pchip',0);
 
 % Theory_100
 %   time: us
-theory_100 = theory_100(:,2);
 
 % ODE_100
 %   time: s
