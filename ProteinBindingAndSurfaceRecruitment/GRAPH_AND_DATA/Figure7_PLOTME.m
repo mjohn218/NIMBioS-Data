@@ -135,7 +135,7 @@ hold on
 title('Stochastic Effects');
 set(gca, 'xscale', 'log', 'fontsize',12, 'fontweight','bold');
 axis([0 20 0 301]);
-ylabel('N_A(t)');
+ylabel('N_{complex}(t)');
 g3 = semilogx(time,theory,'-','Color',[0 0 0], 'LineWidth',4);
 g4 = semilogx(time,det1D, '-.','Color',[0 0 1], 'LineWidth', 3);
 g5 = semilogx(time,gillespie, '--','Color',[0 .8 0], 'LineWidth', 3);
