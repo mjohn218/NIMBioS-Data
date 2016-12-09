@@ -1,0 +1,28 @@
+%% MinCDE2D Animated Line
+
+%% Import
+load('minDt.mat');
+load('EminDT.mat');
+load('time.mat');
+load('distance.mat');
+
+%% Animation
+figure(5)
+clf
+MinDt = animatedline('Color',[0 .75 1],'LineWidth',3);
+MinEDt = animatedline('Color',[0 0 1],'LineWidth',3);
+
+axis([0 6 0 400])
+xlabel('Distance along long axis (um)','FontSize',14);
+ylabel('N(x)','FontSize',14);
+title('Changes in Number of Particles over Time in MinCDE3D','FontSize',16);
+for k = 1:length(time)*4
+    clearpoints(MinDt)
+    clearpoints(MinEDt)
+    
+    index = uint8(ceil(k/4));
+    addpoints(MinDt,distance,minDt(index,:))
+    addpoints(MinEDt,distance,EminDT(index,:))
+    
+    drawnow
+end
