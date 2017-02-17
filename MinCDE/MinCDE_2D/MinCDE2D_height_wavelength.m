@@ -19,7 +19,7 @@ avglengthE = zeros(length(time),1);
 avglengthD = zeros(length(time),1);
 
 for i = 1:length(time)
-    pksE = findpeaks(EminDT(i,:));
+    pksE = findpeaks(EminDT(i,:),'MinPeakDistance',4);
     maxheightE(i,1) = mean(pksE);
 %    localminE = findpeaks(-EminDT(i,:));
     if length(pksE) == 1 %&& length(localminE) == 0
@@ -32,7 +32,7 @@ for i = 1:length(time)
 %         end
 %         avglengthE(i,1) = avgE/(length(lowpksEloc)-1);
     else
-        [lowpksE lowpksEloc] = findpeaks(EminDT(i,:));
+        [lowpksE lowpksEloc] = findpeaks(EminDT(i,:),'MinPeakDistance',4);
         avgE = 0;
         for j = 1:length(lowpksEloc)-1
             avgE = avgE + (distance(lowpksEloc(1,j+1),1)-distance(lowpksEloc(1,j),1));
@@ -40,12 +40,12 @@ for i = 1:length(time)
         avglengthE(i,1) = avgE/(length(lowpksEloc)-1);
     end
     
-    pksD = findpeaks(minDt(i,:));
+    pksD = findpeaks(minDt(i,:),'MinPeakDistance',4,'Threshold',1e-5);
     maxheightD(i,1) = mean(pksD);
     if length(pksD) == 1
         avglengthD(i,1) = 0;
     else
-        [lowpksD lowpksDloc] = findpeaks(minDt(i,:));
+        [lowpksD lowpksDloc] = findpeaks(minDt(i,:),'MinPeakDistance',4);
         avgD = 0;
         for j = 1:length(lowpksDloc)-1
             avgD = avgD + (distance(lowpksDloc(1,j+1),1)-distance(lowpksDloc(1,j),1));

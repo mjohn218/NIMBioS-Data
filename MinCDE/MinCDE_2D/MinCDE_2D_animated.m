@@ -18,11 +18,11 @@ ylabel('N(x)','FontSize',14);
 title('Changes in Number of Particles over Time in MinCDE2D','FontSize',16);
 l=legend('MinDt','EminDT');
 l.FontSize = 14;
-for k = 1:length(time)*6
+for k = 1:length(time)*8
     clearpoints(MinDt)
     clearpoints(MinEDt)
     
-    index = uint8(ceil(k/6));
+    index = uint8(ceil(k/8));
     addpoints(MinDt,distance,minDt(index,:))
     addpoints(MinEDt,distance,EminDT(index,:))
     
