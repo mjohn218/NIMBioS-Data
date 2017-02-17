@@ -40,12 +40,12 @@ for i = 1:length(time)
 %         avglengthE(i,1) = avgE/(length(lowpksEloc)-1);
 %     end
     
-    pksD = findpeaks(minDt(i,:));
+    pksD = findpeaks(minDt(i,:),'MinPeakDistance',4);
     maxheightD(i,1) = mean(pksD);
     if length(pksD) == 1
         avglengthD(i,1) = 0;
     else
-        [lowpksD lowpksDloc] = findpeaks(minDt(i,:));
+        [lowpksD lowpksDloc] = findpeaks(minDt(i,:),'MinPeakDistance',4);
         avgD = 0;
         for j = 1:length(lowpksDloc)-1
             avgD = avgD + (distance(lowpksDloc(1,j+1),1)-distance(lowpksDloc(1,j),1));
