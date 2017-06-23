@@ -15,16 +15,16 @@ MinEDt = animatedline('Color',[0 0 1],'LineWidth',3);
 axis([0 6 0 200])
 xlabel('Distance along long axis (um)','FontSize',14);
 ylabel('N(x)','FontSize',14);
-title('Changes in Number of Particles over Time in MinCDE3D','FontSize',16);
+title('MinCDE (Ellipsoid, Original Parameters)','FontSize',16);
 l=legend('MinDt','EminDT');
 l.FontSize = 14;
-for k = 1:length(time)*8
+for k = 1:length(time)*6
     clearpoints(MinDt)
     clearpoints(MinEDt)
     
-    index = uint8(ceil(k/8));
+    index = uint8(ceil(k/6));
     addpoints(MinDt,distance,minDt(index,:))
     addpoints(MinEDt,distance,EminDt(index,:))
-    
+    disp(index);
     drawnow
 end
