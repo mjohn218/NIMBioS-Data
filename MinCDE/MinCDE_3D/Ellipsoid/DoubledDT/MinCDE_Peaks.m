@@ -55,13 +55,13 @@ DAvgHeight = sum(DPksHeight,2)'./DNumPks;
 DAvgWL = sum(DPksDiff(:,2:floor(length(time)/4)),2)'./(DNumPks-1);
 
 %% Plot EminDt and minDt
-%           Avg Peak Height    Avg Wavelength      Symmetry Value
-%   EminDt          1                 2                  3
-%   minDt           4                 5                  6
+%           Avg Peak Height Avg Wavelength Symmetry Value   Total Conc
+%   EminDt          1             2              3              4
+%   minDt           5             6              7              8
 
 figure(1)
 % EminDt - Average Peak Height over time
-subplot(2,3,1)
+subplot(2,4,1)
 hold on
 legendentries = cell(1,1);
 % Plot the first curve
@@ -76,6 +76,7 @@ for p = 2:max(ENumPks)
     end
 end
 title('Average Peak Height');
+xlabel('time(s)','fontsize',12);
 ylabel('N_{EminDt}(t)','fontsize',12);
 axis([0 1200 0 150]);
 lgnd = legend(legendentries);
@@ -87,15 +88,15 @@ lgnd.Orientation = 'vertical';
 period = time(PPksInd);
 perioddiff = period - [0; period(1:length(period)-1)];
 period = sum(perioddiff)/length(perioddiff);
-annotation('textbox',[.27 .825 .1 .1],'String',strcat('Period: ', num2str(period),' s'),'LineStyle','none');
+annotation('textbox',[.22 .825 .1 .1],'String',strcat('Period: ', num2str(period),' s'),'LineStyle','none');
 
 
 % EminDt - Average Wavelength Over Time
-subplot(2,3,2)
+subplot(2,4,2)
 EAvgWL(isnan(EAvgWL))=0;
 plot(time, EAvgWL,'-','LineWidth',1);
 title('Average Wavelength');
-xlabel('time (s)','fontsize',12);
+xlabel('time(s)','fontsize',12);
 ylabel('distance (um)','fontsize',12);
 axis([0 1200 0 6]);
 % Period calculation
@@ -103,26 +104,41 @@ axis([0 1200 0 6]);
 period = time(PPksInd);
 perioddiff = period - [0; period(1:length(period)-1)];
 period = sum(perioddiff)/length(perioddiff);
-annotation('textbox',[.55 .825 .1 .1],'String',strcat('Period: ', num2str(period),' s'),'LineStyle','none');
+annotation('textbox',[.415 .825 .1 .1],'String',strcat('Period: ', num2str(period),' s'),'LineStyle','none');
 
 
 % EminDt - Symmetry Indicator Over Time
-subplot(2,3,3)
+subplot(2,4,3)
 plot(time,ESymVal,'-','LineWidth',1);
 title('Symmetry');
+xlabel('time(s)','fontsize',12);
 ylabel('Symmetry Number','fontsize',12);
-axis([0 1200 -5e-3 5e-3]);
+axis([0 1200 -5e-6 5e-6]);
 % Period calculation
 [PNumPks, PPksInd] = findPeaks(ESymVal, time);
 period = time(PPksInd);
 perioddiff = period - [0; period(1:length(period)-1)];
 period = sum(perioddiff)/length(perioddiff);
-annotation('textbox',[.83 .825 .1 .1],'String','Period: NaN','LineStyle','none');
+annotation('textbox',[.635 .825 .1 .1],'String','Period:NaN s','LineStyle','none');
 
+
+% EminDt - Chance in Total Number over Time
+subplot(2,4,4)
+plot(time,sum(EminDt,2),'-','LineWidth',1);
+title('Total Number of EMinDt');
+xlabel('time(s)','fontsize',12);
+ylabel('N_{EminDt}(t)','fontsize',12);
+axis([0 1200 0 12000])
+% Period calculation
+[PNumPks, PPksInd] = findPeaks(sum(EminDt,2)', time);
+period = time(PPksInd);
+perioddiff = period - [0; period(1:length(period)-1)];
+period = sum(perioddiff)/length(perioddiff);
+annotation('textbox',[.845 .825 .1 .1],'String',strcat('Period: ', num2str(period),' s'),'LineStyle','none');
 
 
 % minDt - Average Peak Height
-subplot(2,3,4)
+subplot(2,4,5)
 hold on
 legendentries = cell(1,max(DNumPks));
 % Plot the first curve
@@ -135,6 +151,7 @@ for p = 2:max(DNumPks)
     legendentries{1,p} = strcat(num2str(p),' peaks');
 end
 title('Average Peak Height');
+xlabel('time(s)','fontsize',12);
 ylabel('N_{minDt}(t)','fontsize',12);
 axis([0 1200 0 400]);
 lgnd = legend(legendentries);
@@ -146,35 +163,50 @@ lgnd.Orientation = 'vertical';
 period = time(PPksInd);
 perioddiff = period - [0; period(1:length(period)-1)];
 period = sum(perioddiff)/length(perioddiff);
-annotation('textbox',[.27 .35 .1 .1],'String',strcat('Period: ', num2str(period),' s'),'LineStyle','none');
+annotation('textbox',[.22 .35 .1 .1],'String',strcat('Period: ', num2str(period),' s'),'LineStyle','none');
 
 
 % minDt - Average Wavelength
-subplot(2,3,5)
+subplot(2,4,6)
 DAvgWL(isnan(DAvgWL))=0;
 plot(time, DAvgWL,'-','LineWidth',1);
 title('Average Wavelength');
 xlabel('time(s)','fontsize',12);
+ylabel('distance (um)','fontsize',12);
 axis([0 1200 0 6]);
 [PNumPks, PPksInd] = findPeaks(DAvgWL, time);
 period = time(PPksInd);
 perioddiff = period - [0; period(1:length(period)-1)];
 period = sum(perioddiff)/length(perioddiff);
-annotation('textbox',[.55 .35 .1 .1],'String',strcat('Period: ', num2str(period),' s'),'LineStyle','none');
+annotation('textbox',[.415 .35 .1 .1],'String',strcat('Period: ', num2str(period),' s'),'LineStyle','none');
 
 
 % minDt - Symmetry Indicator
-subplot(2,3,6)
+subplot(2,4,7)
 plot(time,DSymVal,'-','LineWidth',1);
 title('Symmetry');
+xlabel('time(s)','fontsize',12);
 ylabel('Symmetry Value');
-axis([0 1200 -5e-3 5e-3]);
+axis([0 1200 -5e-5 5e-5]);
 [PNumPks, PPksInd] = findPeaks(DSymVal, time);
 period = time(PPksInd);
 perioddiff = period - [0; period(1:length(period)-1)];
 period = sum(perioddiff)/length(perioddiff);
-annotation('textbox',[.83 .35 .1 .1],'String','Period: NaN','LineStyle','none');
+annotation('textbox',[.635 .35 .1 .1],'String','Period:NaN s','LineStyle','none');
 
+% minDt - Chance in Total Number over Time
+subplot(2,4,8)
+plot(time,sum(minDt,2),'-','LineWidth',1);
+title('Total Number of MinDt');
+xlabel('time(s)','fontsize',12);
+ylabel('N_{minDt}(t)','fontsize',12);
+axis([0 1200 0 5e4])
+% Period calculation
+[PNumPks, PPksInd] = findPeaks(sum(minDt,2)', time);
+period = time(PPksInd);
+perioddiff = period - [0; period(1:length(period)-1)];
+period = sum(perioddiff)/length(perioddiff);
+annotation('textbox',[.845 .35 .1 .1],'String',strcat('Period: ', num2str(period),' s'),'LineStyle','none');
 
 %% FindPeaksFunction
 %   Takes the concentration data and cell distance vector
@@ -225,11 +257,13 @@ end
 %   Returns a value indicating the symmetry of the cell at a given
 %   timepoint. 
 %   Calculated by taking the left values and subtracting the values on the
-%   right. A negative value indicates that the cell is asymmetric with higher
-%   values on the right side of the cell, and a positive value vice versa.
+%   right. The values are then averaged. A negative value indicates that 
+%   the cell is asymmetric with higher values on the right side of the 
+%   cell, and a positive value vice versa.
 function symval = symVal(data,distance)
     maxd = max(distance);
     center = find(distance<= maxd/2,1,'last');
     range = min(center,length(distance)-center);
     symval = sum(data(center-range+1:center)-fliplr(data(center+1:center+range)));
+    symval = symval/length(data(center-range+1:center+range));
 end
