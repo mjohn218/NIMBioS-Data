@@ -1,4 +1,4 @@
-%% MinCDE_Peaks
+    %% MinCDE_Peaks
 
 %% Initialize
 clear

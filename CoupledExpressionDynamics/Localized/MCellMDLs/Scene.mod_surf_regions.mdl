@@ -1,0 +1,8 @@
+MODIFY_SURFACE_REGIONS
+{
+  Nucleus[ALL]
+  {
+    SURFACE_CLASS = nuc_memb
+  }
+}
+

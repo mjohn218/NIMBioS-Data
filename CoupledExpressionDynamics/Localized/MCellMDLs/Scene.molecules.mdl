@@ -1,0 +1,40 @@
+DEFINE_MOLECULES
+{
+  A
+  {
+    DIFFUSION_CONSTANT_3D = 1e-7
+  }
+  C
+  {
+    DIFFUSION_CONSTANT_3D = 1e-7
+  }
+  mRNA_A_
+  {
+    DIFFUSION_CONSTANT_3D = 1e-7
+  }
+  mRNA_R
+  {
+    DIFFUSION_CONSTANT_3D = 1e-7
+  }
+  PrmA
+  {
+    DIFFUSION_CONSTANT_3D = 1e-7
+  }
+  PrmA_bound
+  {
+    DIFFUSION_CONSTANT_3D = 1e-7
+  }
+  PrmR
+  {
+    DIFFUSION_CONSTANT_3D = 1e-7
+  }
+  PrmR_bound
+  {
+    DIFFUSION_CONSTANT_3D = 1e-7
+  }
+  R
+  {
+    DIFFUSION_CONSTANT_3D = 1e-7
+  }
+}
+

@@ -1,0 +1,16 @@
+DEFINE_SURFACE_CLASSES
+{
+  nuc_memb
+  {
+    REFLECTIVE = PrmA;
+    REFLECTIVE = PrmR;
+    TRANSPARENT = A;
+    TRANSPARENT = C;
+    TRANSPARENT = mRNA_A_;
+    TRANSPARENT = mRNA_R;
+    TRANSPARENT = R;
+    REFLECTIVE = PrmA_bound;
+    REFLECTIVE = PrmR_bound;
+  }
+}
+

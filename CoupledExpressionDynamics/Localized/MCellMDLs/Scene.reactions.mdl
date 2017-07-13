@@ -1,0 +1,18 @@
+DEFINE_REACTIONS
+{
+  A + R -> C [1.204e9]
+  PrmA + A <-> PrmA_bound [>6.02e8, <50]
+  PrmR + A <-> PrmR_bound [>6.02e8, <100]
+  PrmR -> PrmR + mRNA_R [0.01]
+  PrmA_bound -> mRNA_A_ + PrmA_bound [500]
+  PrmR_bound -> mRNA_R + PrmR_bound [50]
+  PrmA -> PrmA + mRNA_A_ [50]
+  mRNA_A_ -> A + mRNA_A_ [50]
+  mRNA_A_ -> NULL [10]
+  mRNA_R -> NULL [0.5]
+  A -> NULL [1]
+  R -> NULL [0.2]
+  C -> R [1]
+  mRNA_R -> mRNA_R + R [5]
+}
+
