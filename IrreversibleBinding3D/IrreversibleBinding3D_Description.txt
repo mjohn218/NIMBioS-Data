@@ -1,0 +1,32 @@
+Irreversible Binding 3D (Figure 1a and 1b)
+This test case examines the reaction between two identical species resulting in the destruction of both species. In particular, this test case examines whether the simulation correctly depicts the equilibrium and kinetics of irreversible binding for volume molecules. Two cases, one of them is absolute boundary condition (1,513.49 s-1.uM-1).       
+
+Species and Diffusion Coefficients:
+A       50 and 100 nm^2.us-1
+
+Initial Conditions (Species, Concentration, Number of Molecules):
+A       16,600 uM       2000 molecules
+
+Reaction (Equation, Kf, Kr):
+A + A -> NULL   335.34 and 1,513.49 s-1.uM-1    0 s-1
+
+
+MCell Parameters
+Geometry:
+Cube
+Volume - 0.0002 um^3
+Cube Radius - 0.02925 um
+
+Time Step: 1e-9 s
+Number of Iterations: 1e6
+Number of Seeds Averaged: 10
+
+
+VCell Parameters
+Geometry:
+Spherical Box
+Cell Effective Radius - 0.00131 um
+
+Time Step: 1e-9 s
+End Time: 1e-4 s
+Number of Trajectories Averaged: 10
