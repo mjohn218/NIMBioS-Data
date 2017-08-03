@@ -22,7 +22,7 @@ Side Length - 1.4726 um
 
 Time Step: 1e-6 s
 Length of Simulation: 1 s
-Number of Seeds (MCell): 1
+Number of Seeds (MCell): 10
 
 
 VCell Parameters
@@ -32,4 +32,4 @@ Cell Effective Radius - 0.835 um
 
 Time Step: 5e-7 s
 End Time: 1 s
-Number of Trajectories Averaged: 1
+Number of Trajectories Averaged: 10
