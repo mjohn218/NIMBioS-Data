@@ -19,6 +19,7 @@ EPksDiff = zeros(length(time),floor(length(time)/4));
 EPksHeight = zeros(length(time),floor(length(time)/4));
 ESymVal = zeros(1,length(time));
 Ethresh = max(max(EminDt))*2.5e-4;
+ETotal = zeros(1,length(time));
 
 for i = 2:length(time)
     [NumPks,PksInd] = findPeaks(EminDt(i,:),distance,Ethresh);
@@ -28,6 +29,7 @@ for i = 2:length(time)
     EPksDiff(i,1:length(PksInd)) = EPksD(i,1:length(PksInd))-[0 EPksD(i,1:length(PksInd)-1)];
     EPksHeight(i,1:length(PksInd)) = EminDt(i,PksInd);
     ESymVal(i) = symVal(EminDt(i,:),distance);
+    ETotal(i) = rsum(EminDt(i,:)',distance');
 end
 
 EAvgHeight = sum(EPksHeight,2)'./ENumPks;
@@ -40,6 +42,7 @@ DPksDiff = zeros(length(time),floor(length(time)/4));
 DPksHeight = zeros(length(time),floor(length(time)/4));
 DSymVal = zeros(1,length(time));
 Dthresh = max(max(minDt))*2.5e-4;
+DTotal = zeros(1,length(time));
 
 for i = 2:length(time)
     [NumPks,PksInd] = findPeaks(minDt(i,:),distance,Dthresh);
@@ -49,10 +52,66 @@ for i = 2:length(time)
     DPksDiff(i,1:length(PksInd)) = DPksD(i,1:length(PksInd))-[0 DPksD(i,1:length(PksInd)-1)];
     DPksHeight(i,1:length(PksInd)) = minDt(i,PksInd);
     DSymVal(i) = symVal(minDt(i,:),distance);
+    DTotal(i) = rsum(minDt(i,:)',distance');
 end
 
 DAvgHeight = sum(DPksHeight,2)'./DNumPks;
 DAvgWL = sum(DPksDiff(:,2:floor(length(time)/4)),2)'./(DNumPks-1);
+%% Period Calculations
+species = {'EminDt','minDt'};
+prop = {'PkHeight', 'Wavelength', 'SymVal', 'Total'};
+% Period Averge over 1200 s
+disp('Period Average Over 1200 s');
+[epkm, epks] = findPeriod(EAvgHeight,time);
+[ewlm, ewls] = findPeriod(EAvgWL, time);
+[esymm, esyms] = findPeriod(ESymVal, time);
+[etotm, etots] = findPeriod(ETotal, time);
+[dpkm, dpks] = findPeriod(DAvgHeight,time);
+[dwlm, dwls] = findPeriod(DAvgWL, time);
+[dsymm, dsyms] = findPeriod(DSymVal, time);
+[dtotm, dtots] = findPeriod(DTotal, time);
+% Period Mean Calculations
+disp('-----------------------------------------------------------');
+disp('--Period Mean Over 1200s--');
+pkheight = [epkm; dpkm];
+wl = [ewlm; dwlm];
+sym = [esymm; dsymm];
+tot = [etotm; dtotm];
+table(pkheight, wl, sym, tot, 'RowNames',species, 'VariableNames',prop)
+% Period Std Calculations
+disp('--Period Std Over 1200s--');
+pkheights = [epks; dpks];
+wls = [ewls; dwls];
+syms = [esyms; dsyms];
+tots = [etots; dtots];
+table(pkheights, wls, syms, tots, 'RowNames',species, 'VariableNames',prop)
+
+% Steady State Period Calculations
+disp('Stead State Period Average Beyond 500 s');
+[epkm, epks] = findPeriod(EAvgHeight,time,500);
+[ewlm, ewls] = findPeriod(EAvgWL, time,500);
+[esymm, esyms] = findPeriod(ESymVal, time,500);
+[etotm, etots] = findPeriod(ETotal, time,500);
+[dpkm, dpks] = findPeriod(DAvgHeight,time,500);
+[dwlm, dwls] = findPeriod(DAvgWL, time,500);
+[dsymm, dsyms] = findPeriod(DSymVal, time,500);
+[dtotm, dtots] = findPeriod(DTotal, time,500);
+% Period Mean Calculations
+disp('-----------------------------------------------------------');
+disp('--Period Mean Steady State--');
+pkheight = [epkm; dpkm];
+wl = [ewlm; dwlm];
+sym = [esymm; dsymm];
+tot = [etotm; dtotm];
+table(pkheight, wl, sym, tot, 'RowNames',species, 'VariableNames',prop)
+% Period Std Calculations
+disp('--Period Std Steady State--');
+pkheights = [epks; dpks];
+wls = [ewls; dwls];
+syms = [esyms; dsyms];
+tots = [etots; dtots];
+table(pkheights, wls, syms, tots, 'RowNames',species, 'VariableNames',prop)
+
 
 %% Plot EminDt and minDt
 %           Avg Peak Height Avg Wavelength Symmetry Value   Total Conc
@@ -83,13 +142,6 @@ lgnd = legend(legendentries);
 lgnd.FontSize = 8;
 lgnd.Location = 'northwest'; 
 lgnd.Orientation = 'vertical';
-% Period calculation
-[PNumPks, PPksInd] = findPeaks(EAvgHeight, time);
-period = time(PPksInd);
-perioddiff = period - [0; period(1:length(period)-1)];
-period = sum(perioddiff)/length(perioddiff);
-annotation('textbox',[.215 .825 .1 .1],'String',strcat('Period: ', num2str(period),' s'),'LineStyle','none');
-
 
 % EminDt - Average Wavelength Over Time
 subplot(2,4,2)
@@ -99,13 +151,6 @@ title('Average Wavelength');
 xlabel('time(s)','fontsize',12);
 ylabel('distance (um)','fontsize',12);
 axis([0 1200 0 6]);
-% Period calculation
-[PNumPks, PPksInd] = findPeaks(EAvgWL, time);
-period = time(PPksInd);
-perioddiff = period - [0; period(1:length(period)-1)];
-period = sum(perioddiff)/length(perioddiff);
-annotation('textbox',[.415 .825 .1 .1],'String',strcat('Period: ', num2str(period),' s'),'LineStyle','none');
-
 
 % EminDt - Symmetry Indicator Over Time
 subplot(2,4,3)
@@ -115,26 +160,14 @@ xlabel('time(s)','fontsize',12);
 ylabel('Symmetry Number','fontsize',12);
 axis([0 1200 -1.5e-3 1.5e-3]);
 % Period calculation
-[PNumPks, PPksInd] = findPeaks(ESymVal, time);
-period = time(PPksInd);
-perioddiff = period - [0; period(1:length(period)-1)];
-period = sum(perioddiff)/length(perioddiff);
-annotation('textbox',[.635 .825 .1 .1],'String','Period: NaN s','LineStyle','none');
 
 % EminDt - Chance in Total Number over Time
 subplot(2,4,4)
-plot(time,sum(EminDt,2),'-','LineWidth',1);
+plot(time,ETotal,'-','LineWidth',1);
 title('Total Number of EMinDt');
 xlabel('time(s)','fontsize',12);
 ylabel('N_{EminDt}(t)','fontsize',12);
-axis([0 1200 0 2.5e4])
-% Period calculation
-[PNumPks, PPksInd] = findPeaks(sum(EminDt,2)', time);
-period = time(PPksInd);
-perioddiff = period - [0; period(1:length(period)-1)];
-period = sum(perioddiff)/length(perioddiff);
-annotation('textbox',[.837 .825 .1 .1],'String',strcat('Period: ', num2str(period),' s'),'LineStyle','none');
-
+axis([0 1200 0 150])
 
 % minDt - Average Peak Height
 subplot(2,4,5)
@@ -157,13 +190,6 @@ lgnd = legend(legendentries);
 lgnd.FontSize = 8;
 lgnd.Location = 'northwest'; 
 lgnd.Orientation = 'vertical';
-% Period calculation
-[PNumPks, PPksInd] = findPeaks(DAvgHeight, time);
-period = time(PPksInd);
-perioddiff = period - [0; period(1:length(period)-1)];
-period = sum(perioddiff)/length(perioddiff);
-annotation('textbox',[.215 .35 .1 .1],'String',strcat('Period: ', num2str(period),' s'),'LineStyle','none');
-
 
 % minDt - Average Wavelength
 subplot(2,4,6)
@@ -173,12 +199,6 @@ title('Average Wavelength');
 xlabel('time(s)','fontsize',12);
 ylabel('distance (um)','fontsize',12);
 axis([0 1200 0 6]);
-[PNumPks, PPksInd] = findPeaks(DAvgWL, time);
-period = time(PPksInd);
-perioddiff = period - [0; period(1:length(period)-1)];
-period = sum(perioddiff)/length(perioddiff);
-annotation('textbox',[.415 .35 .1 .1],'String',strcat('Period: ', num2str(period),' s'),'LineStyle','none');
-
 
 % minDt - Symmetry Indicator
 subplot(2,4,7)
@@ -187,26 +207,14 @@ title('Symmetry');
 xlabel('time(s)','fontsize',12);
 ylabel('Symmetry Value');
 axis([0 1200 -1.5e-3 1.5e-3]);
-[PNumPks, PPksInd] = findPeaks(DSymVal, time);
-period = time(PPksInd);
-perioddiff = period - [0; period(1:length(period)-1)];
-period = sum(perioddiff)/length(perioddiff);
-annotation('textbox',[.635 .35 .1 .1],'String','Period: NaN s','LineStyle','none');
 
 % minDt - Chance in Total Concentration over Time
 subplot(2,4,8)
-plot(time,sum(minDt,2),'-','LineWidth',1);
+plot(time,DTotal,'-','LineWidth',1);
 title('Total Number of MinDt');
 xlabel('time(s)','fontsize',12);
 ylabel('N_{minDt}(t)','fontsize',12);
-axis([0 1200 0 5e4]);
-% Period calculation
-[PNumPks, PPksInd] = findPeaks(sum(minDt,2)', time);
-period = time(PPksInd);
-perioddiff = period - [0; period(1:length(period)-1)];
-period = sum(perioddiff)/length(perioddiff);
-annotation('textbox',[.845 .35 .1 .1],'String',strcat('Period: ', num2str(period),' s'),'LineStyle','none');
-
+axis([0 1200 0 300]);
 %% FindPeaksFunction
 %   Takes the concentration data and cell distance vector
 %   Returns the number of peaks and the index of each peak.
@@ -251,7 +259,32 @@ function [NumPks,PksInd] = findPeaks(data, distance,threshold)
     PksInd = find(pks);
     NumPks = length(PksInd);
 end
-
+%% findPeriod Function
+%   Returns the expected value and standard deviation for the period 
+%   Input:
+%       data    must be a row vector
+%       time    must be a column vector
+%       startt  start time (double)
+%       endt   end time (double)
+function [permean, perstd] = findPeriod(data,time,startt,endt)
+    switch nargin
+        case 2
+            startt = time(1);
+            endt = time(length(time));
+        case 3
+            endt = time(length(time));
+    end
+    
+    startind = find(time>= startt,1,'first');
+    endind = find(time<= endt,1,'last');   
+    
+    [~, PksInd] = findPeaks(data(startind:endind),time(startind:endind));
+    period = time(PksInd + startind - 1);
+    perioddiff = period - [0; period(1:length(period)-1)];
+    
+    permean = mean(perioddiff(2:length(perioddiff)));
+    perstd = std(perioddiff(2:length(perioddiff))); 
+end
 %% Symmetry Measure
 %   Returns a value indicating the symmetry of the cell at a given
 %   timepoint. 
@@ -264,4 +297,35 @@ function symval = symVal(data,distance)
     range = min(center,length(distance)-center);
     symval = sum(data(center-range+1:center)-fliplr(data(center+1:center+range)));
     symval = symval/length(data(center-range+1:center+range));
+end
+%% Reimann Sum Function
+% Assumes data and time are column vectors
+function [reisum] = rsum(data,time,startt,endt)
+    % Check number of inputs.
+    % Fill in unset optional values.
+    switch nargin
+        case 2
+            startt = time(1);
+            endt = time(length(time));
+        case 3
+            endt = time(length(time));
+    end
+    
+    % Find time window; assign to vector called dist
+    dist = time(find(time<=startt,1,'last'):find(time<=endt,1,'last'));
+    
+    % Calculate the difference in time and the total time covered
+    diff = dist - [0; dist(1:size(dist,1)-1)];
+    total = dist(size(dist,1)) - dist(1);
+    
+    % Preallocate Reimann Sum Component Vector
+    reimann = zeros(size(dist,1),1);
+    % Initialize last value
+    reimann(length(reimann)) = data(length(reimann))*1/2*diff(length(reimann));
+    
+    for i = 1:length(reimann)-1
+        reimann(i) = (1/2*diff(i)+1/2*diff(i+1))*data(i);
+    end
+    
+    reisum = sum(reimann)/total;
 end
