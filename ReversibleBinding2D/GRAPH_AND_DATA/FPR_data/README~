@@ -1,0 +1,18 @@
+
+
+50 simulations were run for each ka=10 and k1=1, both with kb=1.
+box length=1000nm.
+
+A0=B0=1000 (simulating A+B <=> C)
+
+DA=DB=1, DC=0.5.
+
+dt=0.1us.
+
+
+copied original averaged_50runs_k1.koff1.dat and
+averaged_50runs_k10.koff1.dat
+into 
+fpr_1_traj50.dat
+and
+fpr_10_traj50.dat

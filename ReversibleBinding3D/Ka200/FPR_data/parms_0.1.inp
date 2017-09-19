@@ -1,0 +1,18 @@
+2 #NProtein Types: Number of Proteins
+2 #nmol: number of interfaces
+10000000 #Nit
+0.5 #time step (us)
+2 #Nrxn
+3 #Nspecies
+5 #mass
+1473.6126 #l: xsidelentgh in nm
+1473.6126 #l: ysidelentgh in nm
+1473.6126 #l: zsidelentgh in nm
+10 #statwrite: instprop
+10000 #config write
+100000 #gr write
+0 #restart
+-1 #pclath
+ 
+
+

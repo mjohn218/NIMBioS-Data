@@ -1,0 +1,13 @@
+the avst_averaged N19 file has taken averages of all trajectories out to the max time possible.
+So the final time points only contain statistics from a single trajectory, since all 20 trajectories ended at distinct times.
+This was copied into the file fpr_1000.mat
+
+
+The 16 and 18 traj versions include all trajectories that made it to the same final time-point, hence there are uniform
+statistics for all the time points.
+16 trajectories made it out to 1.3s
+18 trajectories made it out to 1.28 s
+
+
+Time vector shows duplicate time points due to precision, all data is written out every 5 us.
+

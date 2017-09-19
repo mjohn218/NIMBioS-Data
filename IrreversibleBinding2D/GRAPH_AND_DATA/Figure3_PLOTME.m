@@ -1,8 +1,6 @@
 %% Figure 3 - Simple Irreversible Reaction 2D Plots
 % Clear
-close all
-clear
-clc
+
 
 %% Import
 load('theory_1.mat'); % t in us
@@ -166,7 +164,7 @@ fpr_100(:,2) = fpr_100(:,2)./24;
 fpr_100(:,1) = fpr_100(:,1)*1e6;
 %% Plot
 % Ka = 1 um^2.s-1
-figure(1)
+figure(3)
 subplot(3,1,1) % Spatial Effects
 hold on
 title('Spatial Effects');
@@ -204,7 +202,7 @@ lgnd.Position = [.02 .475 1 1];
 lgnd.Orientation = 'horizontal';
 
 % Ka = 10 um^2.s-1
-figure(2)
+figure(4)
 subplot(3,1,1) % Spatial Effects
 % x0=10;
 % y0=10;
@@ -247,7 +245,7 @@ lgnd.Position = [.02 .475 1 1];
 lgnd.Orientation = 'horizontal';
 
 % Ka = 100 um^2.s-1
-figure(3)
+figure(5)
 subplot(3,1,1) % Spatial Effects
 % x0=10;
 % y0=10;

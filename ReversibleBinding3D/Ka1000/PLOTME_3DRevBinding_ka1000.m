@@ -4,9 +4,7 @@
 %  Use: PLOTME_3DRevBinding_ka1000.m
 
 %% Initialize
-close all
-clear
-clc
+
 
 %% Import
 load ODE
@@ -23,17 +21,6 @@ load FPR
 % Theory
 %   time: us
 time = MCell(:,1)*1e6;
-initA = 1e-2; %initial concentration in nm^-3
-sigma = 1; %nm
-D = 100; %nm^2.um-1
-kD = 4*pi*sigma*D;
-ka = 1000; %nm^3.um-1
-lambda = (D/sigma^2)*(1+(ka/kD))^2;
-Theory = ((1/initA)-kD*(ka/(ka+kD))*(ka/(kD*lambda))+kD*(ka/(ka+kD)).*...
-    (time+((ka.*2.*sqrt(time))./(kD.*sqrt(lambda*pi)))+...
-    (ka/(kD*lambda)).*erfcx(sqrt(lambda*time)))).^(-1);
-Theory = [time Theory*2e5]; % Convert to number of molecules
-clear('time','initA','sigma','D','kD','ka','lambda');
 
 % ODE
 ODE(:,1) = ODE(:,1)*1e6;
@@ -93,41 +80,31 @@ ODEerr = abs(ODE(:,2)-exact)./exact;
 
 % Gillespie
 time = Gillespie(:,1);
-exact = ((1/initA)-kD*(ka/(ka+kD))*(ka/(kD*lambda))+kD*(ka/(ka+kD)).*...
-    (time+((ka.*2.*sqrt(time))./(kD.*sqrt(lambda*pi)))+...
-    (ka/(kD*lambda)).*erfcx(sqrt(lambda*time)))).^(-1);
+exact = 
 exact = exact*2e5; % Convert to number of molecules
 Gillespieerr = abs(Gillespie(:,2)-exact)./exact;
 
 % PDE
 time = PDE(:,1);
-exact = ((1/initA)-kD*(ka/(ka+kD))*(ka/(kD*lambda))+kD*(ka/(ka+kD)).*...
-    (time+((ka.*2.*sqrt(time))./(kD.*sqrt(lambda*pi)))+...
-    (ka/(kD*lambda)).*erfcx(sqrt(lambda*time)))).^(-1);
+exact = 
 exact = exact*2e5; % Convert to number of molecules
 PDEerr = abs(PDE(:,2)-exact)./exact;
 
 % Smoldyn
 time = Smoldyn(:,1);
-exact = ((1/initA)-kD*(ka/(ka+kD))*(ka/(kD*lambda))+kD*(ka/(ka+kD)).*...
-    (time+((ka.*2.*sqrt(time))./(kD.*sqrt(lambda*pi)))+...
-    (ka/(kD*lambda)).*erfcx(sqrt(lambda*time)))).^(-1);
+exact = 
 exact = exact*2e5; % Convert to number of molecules
 Smoldynerr = abs(Smoldyn(:,2)-exact)./exact;
 
 % MCell
 time = MCell(:,1);
-exact = ((1/initA)-kD*(ka/(ka+kD))*(ka/(kD*lambda))+kD*(ka/(ka+kD)).*...
-    (time+((ka.*2.*sqrt(time))./(kD.*sqrt(lambda*pi)))+...
-    (ka/(kD*lambda)).*erfcx(sqrt(lambda*time)))).^(-1);
+exact = 
 exact = exact*2e5; % Convert to number of molecules
 MCellerr = abs(MCell(:,2)-exact)./exact;
 
 % FPR
 time = FPR(:,1);
-exact = ((1/initA)-kD*(ka/(ka+kD))*(ka/(kD*lambda))+kD*(ka/(ka+kD)).*...
-    (time+((ka.*2.*sqrt(time))./(kD.*sqrt(lambda*pi)))+...
-    (ka/(kD*lambda)).*erfcx(sqrt(lambda*time)))).^(-1);
+exact = 
 exact = exact*2e5; % Convert to number of molecules
 FPRerr = abs(FPR(:,2)-exact)./exact;
 
