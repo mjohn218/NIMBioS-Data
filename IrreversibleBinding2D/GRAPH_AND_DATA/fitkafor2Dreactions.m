@@ -248,7 +248,7 @@ tvec = [0;ttemp(:)];
 ktvec = createkt(tvec,D,k,s,scalarlongtime,scalarshorttime);
 
 function kt = createkt(ts,D,k,s,scalarlongtime,scalarshorttime)
-% gives k(t), uses approximate k(t) and shot-time and long-time asymptotics
+% gives k(t), uses k(t) and shot-time and long-time asymptotics
 
 kt = zeros(length(ts),1);
 cutofflongtime = scalarlongtime*s*s/D;

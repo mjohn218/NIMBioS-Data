@@ -3,7 +3,7 @@
 
 
 %% Import
-load('theory_1.mat'); % t in us
+load('theory_ka1_D2_sig1_A01K.dat'); % t in us
 load('det1D_1.mat'); % t in s
 load('det3D_1.mat'); % t in s
 load('gillespie_1.mat'); % t in s
@@ -11,7 +11,7 @@ load('mcell_1.mat'); % t in s
 load('smoldyn_1.mat'); % t in s
 load('fpr_1.mat'); % t in s
 
-load('theory_10.mat'); % t in us
+load('theory_ka10_D2_sig1_A01K.dat'); % t in usload('theory_10.mat'); % t in us
 load('det1D_10.mat'); % t in s
 load('det3D_10.mat'); % t in s
 load('gillespie_10.mat'); % t in s
@@ -19,7 +19,7 @@ load('mcell_10.mat'); % t in s
 load('smoldyn_10.mat'); % t in s
 load('fpr_10.mat'); % t in s
 
-load('theory_100.mat'); % t in us
+load('theory_ka100_D2_sig1_A01K.dat'); % t in usload('theory_100.mat'); % t in us
 load('det1D_100.mat'); % t in s
 load('det3D_100.mat'); % t in s
 load('gillespie_100.mat'); % t in s
@@ -29,7 +29,9 @@ load('fpr_100.mat'); % t in s
 %% Process data
 %   Data files containing one or more trials are averaged
 %   Time is converted to us
-
+theory_1=theory_ka1_D2_sig1_A01K; % t in us
+theory_10=theory_ka10_D2_sig1_A01K; % t in us
+theory_100=theory_ka100_D2_sig1_A01K; % t in us
 % ODE_1
 %   time: s
 det1D_1(:,1) = det1D_1(:,1)*1e6;
