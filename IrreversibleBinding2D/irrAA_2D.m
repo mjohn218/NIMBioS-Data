@@ -1,7 +1,13 @@
 function[At, ktvec, tvec, ktintvec] = irrAA_2D(A0,k,s,D,time)
+% Concentrations are in units of molecules per nm^{2}
+% Length scale s is in units of nm
+% time is in us ({\mu}s)  
+% A0(molecules per nm^{2})
+% k and D are in units of nm^2/({\mu}s)
+
 scalarshorttime=0.001; %shortime asymptote
 scalarlongtime=10; %long time asymptote
-%to avoid asymptotis, set shorttime=0 and longtime>time(end)*sig^2/D.
+%to avoid using asymptotes, set shorttime=0 and longtime>time(end)*sig^2/D.
 
 %%% FOR RXN TYPE: A+A->0
 
