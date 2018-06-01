@@ -16,16 +16,9 @@ Initial Conditions (Species, Concentration, Number of Molecules):
 A       25.945 uM               1000 molecules
 B       6250 molecules.um^2     1000 molecules
 
-
-
 Reaction (Equation, Kf, Kr):
 A + B <-> C   0.30 s-1.uM-1    1 s-1
 
 Time Step: 1e-6 s
 Length of Simulation: 10 s
 Number of Seeds (MCell): 1
-
-
-Results:
-Aeq=299.9 molecules or 7.781uM
-Ceq=700.1 molecules

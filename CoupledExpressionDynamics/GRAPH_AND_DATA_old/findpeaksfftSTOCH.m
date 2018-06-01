@@ -1,17 +1,18 @@
-function result = findpeaksfftSTOCH(mat)
+function [waveLengthMat, At, Rt] = findpeaksfftSTOCH(mat)
 
 [~,n] = size(mat);
 numsets = (n-1)/2;
-
+waveLengthMat=zeros(numsets,3);
 for i=1:numsets
-    [wlA(i),avA(i)] = findpeaksfftsub(mat(:,2*i),mat(:,1));
+	[wlA(i),avA(i), At] = findpeaksfftsub(mat(:,2*i),mat(:,1));
     hold on
-    [wlR(i),avR(i)] = findpeaksfftsub(mat(:,2*i+1),mat(:,1));
+    [wlR(i),avR(i), Rt] = findpeaksfftsub(mat(:,2*i+1),mat(:,1));
     
     lagDiff(i) = lagtime(mat(:,2*i),mat(:,2*i+1),mat(:,1));
+waveLengthMat(i,:)=[wlA(i), wlR(i), lagDiff(i)];
 end
 
-result = [mean(wlA) mean(wlR) mean(avA) mean(avR) mean(lagDiff)];
+%result = [mean(wlA) mean(wlR) mean(avA) mean(avR) mean(lagDiff)];
 %...
  %   std(wlA) std(wlR) std(avA) std(avR) std(lagDiff)];
 % disp(mat(abs(lagDiff),1));
@@ -21,7 +22,7 @@ result = [mean(wlA) mean(wlR) mean(avA) mean(avR) mean(lagDiff)];
 % legend('A','R');
 % title(['Period A:' num2str(wlA) ', Period R:' num2str(wlR)])
 %close all
-function [wl,av] = findpeaksfftsub(A,distance)
+function [wl,av, At] = findpeaksfftsub(A,distance)
 
 av = mean(A);
 r = 10;
@@ -32,7 +33,7 @@ y(1) = 0;
 A = interp1(distance,A,y);
 A = A-mean(A);
 distance = y;
-
+At=[distance, A];
 % Find wavelength of A
 L = length(A);
 if mod(L,2) ~= 0
@@ -59,6 +60,8 @@ wl = 1/f(i);
 %     xlabel('Length (um)', 'fontsize',14);
 %     ylabel('EminDT');
 %     subplot(1,2,2)
+fnum=20;
+figure(fnum);
  plot(1./f,P1,'LineWidth',3)
  xlabel('Period (s)', 'fontsize',24);
  ylabel('Magnitude', 'fontsize',24);

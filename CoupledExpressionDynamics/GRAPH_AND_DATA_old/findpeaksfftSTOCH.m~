@@ -1,17 +1,18 @@
-function result = findpeaksfftSTOCH(mat)
+function [waveLengthMat] = findpeaksfftSTOCH(mat)
 
 [~,n] = size(mat);
 numsets = (n-1)/2;
-
+waveLengthMat=zeros(numsets,3);
 for i=1:numsets
     [wlA(i),avA(i)] = findpeaksfftsub(mat(:,2*i),mat(:,1));
     hold on
     [wlR(i),avR(i)] = findpeaksfftsub(mat(:,2*i+1),mat(:,1));
     
     lagDiff(i) = lagtime(mat(:,2*i),mat(:,2*i+1),mat(:,1));
+waveLengthMat(i,:)=[wlA(i), wlR(i), lagDiff(i)];
 end
 
-result = [mean(wlA) mean(wlR) mean(avA) mean(avR) mean(lagDiff)];
+%result = [mean(wlA) mean(wlR) mean(avA) mean(avR) mean(lagDiff)];
 %...
  %   std(wlA) std(wlR) std(avA) std(avR) std(lagDiff)];
 % disp(mat(abs(lagDiff),1));
@@ -59,6 +60,8 @@ wl = 1/f(i);
 %     xlabel('Length (um)', 'fontsize',14);
 %     ylabel('EminDT');
 %     subplot(1,2,2)
+fnum=20;
+figure(fnum);
  plot(1./f,P1,'LineWidth',3)
  xlabel('Period (s)', 'fontsize',24);
  ylabel('Magnitude', 'fontsize',24);
