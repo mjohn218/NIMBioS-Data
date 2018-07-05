@@ -1,0 +1,6 @@
+Stored boht minDt and EminDt data points downloaded from VCell sim of 900s.
+They are along one slide of the long edge of the cylinder, either just along the wall (0 to 4um)
+or starting from the center of the cylinder cap (so -0.5 to 4.5), the cap has a radius of 0.5.
+
+
+These are in the csv files, or .zip files.

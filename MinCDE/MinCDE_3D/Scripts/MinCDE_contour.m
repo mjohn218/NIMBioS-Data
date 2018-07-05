@@ -11,7 +11,7 @@ load('distance.mat');
 
 %% Plot
 % MinDt Plot
-figure(1)
+figure(8)
 subplot(2,1,1)
 surf(time,distance,minDt');
 axis([0 1200 0 6]);
