@@ -1,0 +1,2 @@
+note the A(t) vs t data for FPR reports a STDEV, so SEM=STDEV/sqrt(ntraj=80)
+and A(t) vs t data for GFRD reports the SEM already. 

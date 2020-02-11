@@ -1,2 +1,8 @@
-note the A(t) vs t data for FPR reports a STDEV, so SEM=STDEV/sqrt(ntraj=80)
-and A(t) vs t data for GFRD reports the SEM already. 
+
+
+
+A(t) vs t data for FPR and GFRD reports STDEV in 3rd column, over N=80 and 10 trajectories, respectively, 
+FOR SEM divide by sqrt(Ntraj).
+
+For fit to data (kfit values), each individual curve is fit, and then the AVG of this value and its SEM is reported!
+This was done properly over all ntraj in the first place.
