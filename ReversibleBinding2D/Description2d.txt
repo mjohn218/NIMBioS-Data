@@ -1,0 +1,20 @@
+
+A+B<->C
+
+Copy numbers, D
+A0=1000, 1um2/s
+B0=1000, 1um2/s
+C0=0, 0.5um2/s
+
+Rates for FPR
+ka: 10um2/s, kb=10/s
+sigma=1nm
+
+Rates for macroscopic
+kon=3.07 um2/s, koff=3.07/s
+
+SA=1um x 1um =1um2.
+
+
+Aeq=31.1267
+Reaches equilibrium at ~0.09s
