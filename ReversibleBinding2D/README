@@ -1,5 +1,6 @@
 FPR has dt=0.1us
 5 trajs, with copy nums are A(t) printed each 5E-6 s. 
+--supplemented with 5 short runs to get better resolution from 1e-7 to 5e-6 (every 1e-7 s printed).
 
 smoldyn has dt=0.1us
 1traj so far.
