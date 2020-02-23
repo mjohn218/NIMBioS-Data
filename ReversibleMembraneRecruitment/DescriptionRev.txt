@@ -15,17 +15,12 @@ Z Side Length - 0.207 um
 
 Initial Conditions (Species, Concentration, Number of Molecules):
 A       1 uM                    602 molecules
-B       6045 molecules.um^2     29,330 molecules
+B       6045 molecules.um^2     29,258 molecules
 
 Reaction (Equation, Kf, Kr):
-FPR ka: 1000nm3/us, kb: 500s-1
+FPR ka: 1000nm3/us, (input 500, code will multiply by 2 b/c 3D->2D) kb: 500s-1 
 MACROSCOPIC kon: 84.4 s-1 uM-1, koff: 70.085 s-1
 kon=140.17nm3/us, koff=70.085 s-1
-
-Use kon=163 nm3/us, based on FPR using ka*2 to mediate binding.
-thus koff=81.5 s-1
-kon=98.1 uM-1s-1
-
 
 Kd=0.83uM
 

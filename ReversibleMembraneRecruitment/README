@@ -1,0 +1,3 @@
+FPR is from 4 trajectories at every 1e-5s, and 5 trajectories for 1e-7 to 1e-5
+
+Smoldyn due to volume precision limits, had 613 particles at the begining, so rescaled by 602/613.
