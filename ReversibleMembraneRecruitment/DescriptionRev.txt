@@ -1,5 +1,5 @@
-Irreversible Membrane Recruitment (Figure 9a)
-This test examines a volume molecule irreversibly binding to a surface molecule. This case is important to determine whether the method accurately achieves the proper kinetics of irreversible binding.     
+
+This test examines a volume molecule irreversibly binding to a surface molecule. This case is important to determine whether the method accurately achieves the proper kinetics of binding, with a spatial gradient (B is in 2D)
 
 Species and Diffusion Coefficients:
 A (3D)      30 nm^2.us-1
@@ -18,7 +18,8 @@ A       1 uM                    602 molecules
 B       6045 molecules.um^2     29,258 molecules
 
 Reaction (Equation, Kf, Kr):
-FPR ka: 1000nm3/us, (input 500, code will multiply by 2 b/c 3D->2D) kb: 500s-1 
+FPR ka: 1000nm3/us, (input 1000, code will multiply by 2 b/c 3D->2D, ) kb: 500s-1 
+or FPR: ka= 500nm/us, kb=250 s-1
 MACROSCOPIC kon: 84.4 s-1 uM-1, koff: 70.085 s-1
 kon=140.17nm3/us, koff=70.085 s-1
 
@@ -30,8 +31,3 @@ Aeq= 10.3 copies. or 0.017uM
 Ceq=591.7 copies, or 0.983uM
 
 
-
-
-Time Step: 1e-6 s
-Length of Simulation: 1 s
-Number of Seeds (MCell): 10
