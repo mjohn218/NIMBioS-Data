@@ -11,8 +11,11 @@ A       52 uM      100,000 molecules
 B       52 uM      100,000 molecules
 
 Reaction (Equation, Kf, Kr):
-A + B <-> C   14.76 and 13.45 s-1.uM-1    0.025 and 1.116 s-1, respectively
+A + B <-> C   14.76    0.02451 
 
+FPR: ka 1000nm3/us, kb: 1/s
+
+Kd=1E-3 /nm3 = 0.00166 uM
 
 MCell Parameters
 Geometry:

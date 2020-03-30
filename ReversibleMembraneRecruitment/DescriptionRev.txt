@@ -18,8 +18,8 @@ A       1 uM                    602 molecules
 B       6045 molecules.um^2     29,258 molecules
 
 Reaction (Equation, Kf, Kr):
-FPR ka: 1000nm3/us, (input 1000, code will multiply by 2 b/c 3D->2D, ) kb: 500s-1 
-or FPR: ka= 500nm/us, kb=250 s-1
+FPR ka3D-2D: 1000nm3/us. NOTE: input ka3D=500, code will multiply by 2 to get ka3D-2D=1000nm3/us ) kb: 250s-1 
+
 MACROSCOPIC kon: 84.4 s-1 uM-1, koff: 70.085 s-1
 kon=140.17nm3/us, koff=70.085 s-1
 

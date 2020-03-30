@@ -1,3 +1,6 @@
-FPR is from 4 trajectories at every 1e-5s, and 5 trajectories for 1e-7 to 1e-5
+
+FPR/NERDSS is averaged over 10 trajectories, dt=1e-7s. 
+Printed only each 1e-5s, so 10 new short trajectories were run to get t=[1e-7:1e-5] with more time points. 
 
 Smoldyn due to volume precision limits, had 613 particles at the begining, so rescaled by 602/613.
+Use dt=1e-8, 1e-7, and 1e-6. As you increased dt, it moved closer to the PDE solution. 

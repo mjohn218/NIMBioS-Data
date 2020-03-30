@@ -11,7 +11,7 @@ A       52 uM      100,000 molecules
 B       52 uM      100,000 molecules
 
 Reaction (Equation, Kf, Kr):
-A + B <-> C   14.76    0.02451 
+A + B <-> C   14.76 uM-1s-1    0.02451 s-1
 
 FPR: ka 1000nm3/us, kb: 1/s
 
