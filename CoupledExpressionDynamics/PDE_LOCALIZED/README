@@ -1,0 +1,17 @@
+1. DA2_DR50
+has D_A=2um2/s
+D_R=50um2/s
+D_C=1.9um2/s
+
+Promoters have D=0.
+D_RNA=5um2/s
+
+2. DA5_DR50
+same as above, except 
+D_A=5um2/s
+
+3. BothD1
+D_A=1um2/s
+D_R=1um2/s
+
+This was run to verify whether the size of D_R was important, which it is not, only D_A seems to control the spatial distribution and the oscillation time. 
